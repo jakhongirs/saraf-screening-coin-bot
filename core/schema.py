@@ -7,11 +7,11 @@ from .generator import BothHttpAndHttpsSchemaGenerator
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="UIC API",
+        title="Saraf Screening Coin Bot",
         default_version="v1",
-        description="UIC Group",
+        description="Saraf Screening Coin Bot",
         terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="info@uic.group"),
+        contact=openapi.Contact(email="info@gmail.com"),
         license=openapi.License(name="BSD License"),
     ),
     public=True,
