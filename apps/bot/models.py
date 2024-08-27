@@ -5,10 +5,10 @@ from apps.common.models import BaseModel
 
 
 class CoinStatusChoices(models.TextChoices):
-    compliant = "compliant", _("Compliant")
-    not_screened_yet = "not_screened_yet", _("Not screened yet")
-    non_compliant = "non_compliant", _("Non compliant")
-    doubtful = "doubtful", _("Doubtful")
+    compliant = "compliant", _("Compliant")  # Translation in uzbek: Joiz
+    not_screened_yet = "not_screened_yet", _("Not screened yet")  # Tekshirilmagan
+    non_compliant = "non_compliant", _("Non compliant")  # Joiz emas
+    doubtful = "doubtful", _("Doubtful")  # Shubhali
 
 
 class Coin(BaseModel):
