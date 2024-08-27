@@ -27,3 +27,10 @@ class Coin(BaseModel):
     class Meta:
         verbose_name = _("Coin")
         verbose_name_plural = _("Coins")
+
+
+class AllowedUser(models.Model):
+    username = models.CharField(max_length=255, unique=True)
+
+    def __str__(self):
+        return self.username
