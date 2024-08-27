@@ -19,3 +19,11 @@ class Coin(BaseModel):
         choices=CoinStatusChoices.choices,
         default=CoinStatusChoices.not_screened_yet,
     )
+    logo = models.ImageField(_("Logo"), upload_to="coin_logos/", null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _("Coin")
+        verbose_name_plural = _("Coins")
