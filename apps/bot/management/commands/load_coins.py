@@ -68,21 +68,30 @@ class Command(BaseCommand):
         symbol = coin.get("symbol")
         status = coin.get("status", CoinStatusChoices.not_screened_yet)
 
-        # Assuming status matches your CoinStatusChoices, otherwise map it accordingly
+        # Ensure the status is valid
         if status not in dict(CoinStatusChoices.choices):
             status = CoinStatusChoices.not_screened_yet
 
-        # Check for existence
-        if Coin.objects.filter(symbol=symbol).exists():
-            self.stdout.write(f"Skipped existing coin: Name={name}, Symbol={symbol}")
-        else:
-            # Create or update the Coin entry in the database
-            Coin.objects.update_or_create(
-                symbol=symbol,
-                defaults={"name": name, "status": status},
-            )
+        # Fetch coins with the same symbol
+        coins_with_symbol = Coin.objects.filter(symbol=symbol)
 
-            # Display each loaded coin
+        if coins_with_symbol.exists():
+            if coins_with_symbol.count() > 1:
+                self.stdout.write(
+                    f"Multiple entries found for Symbol={symbol}, skipping update."
+                )
+            else:
+                # Update the existing entry if only one coin is found
+                coin_entry = coins_with_symbol.first()
+                coin_entry.name = name
+                coin_entry.status = status
+                coin_entry.save()
+                self.stdout.write(
+                    f"Updated existing coin: Name={name}, Symbol={symbol}, Status={status}"
+                )
+        else:
+            # Create a new Coin entry if it doesn't exist
+            Coin.objects.create(name=name, symbol=symbol, status=status)
             self.stdout.write(
-                f"Loaded coin: Name={name}, Symbol={symbol}, Status={status}"
+                f"Loaded new coin: Name={name}, Symbol={symbol}, Status={status}"
             )
