@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 TOKEN = "7546345897:AAEGCiEUA4DfRi-i80aXSmvUS0ItPY-EGJ4"
 
-telegram_group_chat_id = -1002167485403
+telegram_group_chat_id = -1002234521267
 
 
 # Status translation function
