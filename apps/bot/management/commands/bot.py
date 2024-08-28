@@ -59,7 +59,7 @@ def handle_message(update: Update, context: CallbackContext) -> None:
                 f"💰 Kripto aktiv: {coin.name} ({coin.symbol})\n📊 Holat: {status_uzbek}"
             )
         else:
-            response = f"'{symbol}' belgisiga ega kripto aktiv topilmadi."
+            response = f"'{symbol}' belgisiga ega kripto aktiv topilmadi"
 
         update.message.reply_text(response)
 
