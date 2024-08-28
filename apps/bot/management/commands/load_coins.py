@@ -32,6 +32,9 @@ class Command(BaseCommand):
         coins_url = "https://sarafscreening.com/api/v1/main/CoinList/"
         headers = {"Authorization": f"Bearer {access_token}"}
 
+        # Initialize a counter to keep track of the loaded coins
+        self.loaded_count = 0
+
         with ThreadPoolExecutor(max_workers=10) as executor:
             while coins_url:
                 response = requests.get(coins_url, headers=headers)
@@ -59,8 +62,9 @@ class Command(BaseCommand):
                 # Get the next page URL from the 'next' field
                 coins_url = data.get("next")
 
+        # Print the total count of loaded coins
         self.stdout.write(
-            self.style.SUCCESS("Coins successfully fetched and saved to the database")
+            self.style.SUCCESS(f"Total coins loaded: {self.loaded_count}")
         )
 
     def process_coin(self, coin):
@@ -72,26 +76,10 @@ class Command(BaseCommand):
         if status not in dict(CoinStatusChoices.choices):
             status = CoinStatusChoices.not_screened_yet
 
-        # Fetch coins with the same symbol
-        coins_with_symbol = Coin.objects.filter(symbol=symbol)
+        # Directly create a new Coin entry without checking for duplicates
+        Coin.objects.create(name=name, symbol=symbol, status=status)
 
-        if coins_with_symbol.exists():
-            if coins_with_symbol.count() > 1:
-                self.stdout.write(
-                    f"Multiple entries found for Symbol={symbol}, skipping update."
-                )
-            else:
-                # Update the existing entry if only one coin is found
-                coin_entry = coins_with_symbol.first()
-                coin_entry.name = name
-                coin_entry.status = status
-                coin_entry.save()
-                self.stdout.write(
-                    f"Updated existing coin: Name={name}, Symbol={symbol}, Status={status}"
-                )
-        else:
-            # Create a new Coin entry if it doesn't exist
-            Coin.objects.create(name=name, symbol=symbol, status=status)
-            self.stdout.write(
-                f"Loaded new coin: Name={name}, Symbol={symbol}, Status={status}"
-            )
+        # Increment the counter for each loaded coin
+        self.loaded_count += 1
+
+        self.stdout.write(f"Loaded coin: Name={name}, Symbol={symbol}, Status={status}")

@@ -50,14 +50,22 @@ def handle_message(update: Update, context: CallbackContext) -> None:
     if message_text.startswith("joizmi:") and chat_id == telegram_group_chat_id:
         symbol = message_text.split("joizmi:")[1].strip()
 
-        # Search for the coin by symbol
-        coin = Coin.objects.filter(symbol__icontains=symbol).first()
+        print(symbol)
 
-        if coin:
-            status_uzbek = translate_status(coin.status)
-            response = (
-                f"💰 Kripto aktiv: {coin.name} ({coin.symbol})\n📊 Holat: {status_uzbek}"
-            )
+        # Search for all coins by symbol
+        coins = Coin.objects.filter(symbol__iexact=symbol)
+
+        if coins.exists():
+            # Create a response message for all matching coins
+            response = "🔍 Topilgan kripto aktivlar:\n\n"
+            for coin in coins:
+                status_uzbek = translate_status(coin.status)
+                response += (
+                    f"💰 Kripto aktiv: {coin.name}\n"
+                    f"📌 Belgisi: {coin.symbol}\n"
+                    f"📊 Holat: {status_uzbek}\n"
+                    "---------------------------------\n"
+                )
         else:
             response = f"'{symbol}' belgisiga ega kripto aktiv topilmadi"
 
