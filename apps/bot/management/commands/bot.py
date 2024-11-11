@@ -40,6 +40,10 @@ def start(update: Update, context: CallbackContext) -> None:
 
 
 def handle_message(update: Update, context: CallbackContext) -> None:
+    if not update.message:
+        logger.warning("Received an update without a message.")
+        return
+
     chat_id = update.message.chat_id
     message_text = update.message.text.lower().strip()
 
