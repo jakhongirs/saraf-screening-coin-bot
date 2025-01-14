@@ -58,11 +58,11 @@ class Command(BaseCommand):
             chat_id = update.message.chat_id
             message_text = update.message.text.lower().strip()
 
-            if chat_id != GROUP_CHAT_ID:
-                update.message.reply_text(
-                    "Bu bot faqat ruxsat berilgan guruhda ishlaydi."
-                )
-                return
+            # if chat_id != GROUP_CHAT_ID:
+            #     update.message.reply_text(
+            #         "Bu bot faqat ruxsat berilgan guruhda ishlaydi."
+            #     )
+            #     return
 
             if message_text.startswith("joizmi:"):
                 handle_coin_query(update, message_text.split("joizmi:")[1].strip())
@@ -197,9 +197,11 @@ class Command(BaseCommand):
 
         def fetch_symbols(date: str) -> list:
             url = f"https://api.nasdaq.com/api/calendar/earnings?date={date}"
-            headers = {"User-Agent": "Mozilla/5.0"}
-            with httpx.Client(http2=True) as client:
-                response = client.get(url, headers=headers, timeout=10)
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+            with httpx.Client(http2=False) as client:
+                response = client.get(url, headers=headers, timeout=60)
                 response.raise_for_status()
                 data = response.json().get("data", {}).get("rows", [])
                 symbols = [
