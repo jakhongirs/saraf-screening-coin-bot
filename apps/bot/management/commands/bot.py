@@ -58,11 +58,11 @@ class Command(BaseCommand):
             chat_id = update.message.chat_id
             message_text = update.message.text.lower().strip()
 
-            # if chat_id != GROUP_CHAT_ID:
-            #     update.message.reply_text(
-            #         "Bu bot faqat ruxsat berilgan guruhda ishlaydi."
-            #     )
-            #     return
+            if chat_id != GROUP_CHAT_ID:
+                update.message.reply_text(
+                    "Bu bot faqat ruxsat berilgan guruhda ishlaydi."
+                )
+                return
 
             if message_text.startswith("joizmi:"):
                 handle_coin_query(update, message_text.split("joizmi:")[1].strip())
