@@ -21,7 +21,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-TOKEN = "8094285133:AAGW-nE6mqQ2qjZlg0-2nx11P90TzPgpWD0"
+TOKEN = "7546345897:AAEGCiEUA4DfRi-i80aXSmvUS0ItPY-EGJ4"
 GROUP_CHAT_ID = -1002234521267
 
 
