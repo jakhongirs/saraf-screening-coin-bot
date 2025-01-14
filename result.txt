@@ -1,0 +1,151 @@
+<b>Ticker</b>	|	<b>Status</b>	|	<b>Vaqt</b>
+----------------------------------------
+<b>KO</b>	|	Shubhali ❓	|	Not Supplied ❔
+<b>SPGI</b>	|	Joiz ✅	|	Pre-Market ☀️
+<b>SHOP</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>GILD</b>	|	Joiz ✅	|	After Hours 🌙
+<b>MCO</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>ABNB</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>WELL</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>MAR</b>	|	Shubhali ❓	|	Not Supplied ❔
+<b>DASH</b>	|	Joiz ✅	|	After Hours 🌙
+<b>ET</b>	|	Joiz emas ❌	|	After Hours 🌙
+<b>ECL</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>DDOG</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>HWM</b>	|	Shubhali ❓	|	Not Supplied ❔
+<b>AIG</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>AMX</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>HUM</b>	|	Joiz emas ❌	|	Pre-Market ☀️
+<b>EQT</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>GDDY</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>TPG</b>	|	Shubhali ❓	|	Not Supplied ❔
+<b>GFS</b>	|	Joiz ✅	|	Pre-Market ☀️
+<b>BIIB</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>ES</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>LDOS</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>WSO</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>WSO.B</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>INVH</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>TRU</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>Z</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>ZG</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>MAS</b>	|	Joiz ✅	|	Pre-Market ☀️
+<b>ENTG</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>INCY</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>DVA</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>CART</b>	|	Shubhali ❓	|	Not Supplied ❔
+<b>ALSN</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>BRKR</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>PRI</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>WCC</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>CFLT</b>	|	Joiz emas ❌	|	After Hours 🌙
+<b>HAS</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>SUN</b>	|	Joiz emas ❌	|	Pre-Market ☀️
+<b>ROIV</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>ADC</b>	|	Joiz emas ❌	|	After Hours 🌙
+<b>AN</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>BFAM</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>LLYVK</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>OS</b>	|	Joiz ✅	|	After Hours 🌙
+<b>LLYVA</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>LYFT</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>HRI</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>UPST</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>GXO</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>KRG</b>	|	Joiz emas ❌	|	After Hours 🌙
+<b>FRSH</b>	|	Joiz emas ❌	|	After Hours 🌙
+<b>LOPE</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>INGM</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>KTOS</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>RUSHA</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>FELE</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>RUSHB</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>MIR</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>IAC</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>BL</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>REZI</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>IPGP</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>HIW</b>	|	Joiz emas ❌	|	After Hours 🌙
+<b>LIF</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>USAC</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>AKR</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>MCY</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>LCII</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>GCMG</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>SEB</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>IVT</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>NGD</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>BKV</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>NPWR</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>TWFG</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>HE</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>DNUT</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>MODG</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>DAC</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>NMM</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>GRDN</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>KLG</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>SILA</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>SDHC</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>MRC</b>	|	Joiz ✅	|	After Hours 🌙
+<b>SMWB</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>EXOD</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>UTL</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>CRSR</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>ANGI</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>SITC</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>CBLL</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>BCAX</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>UFCS</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>GRAL</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>CHCT</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>DDI</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>ITIC</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>NRC</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>HYLN</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>FMAO</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>ZBIO</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>NETD</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>CUB</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>ATOM</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>DENN</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>PBFS</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>RZLT</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>ELMD</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>RENE</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>BNTC</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>SVCO</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>GAUZ</b>	|	Shubhali ❓	|	Not Supplied ❔
+<b>OGI</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>NEWP</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>ARTV</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>GNSS</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>IMPP</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>VTGN</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>ELVA</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>OMCC</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>EPIX</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>AIRE</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>NB</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>GEG</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>TYGO</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>MODD</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>ANEB</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>NMTC</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>NTWK</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>CXAI</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>NAII</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>JOB</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>PZG</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>IBO</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>MEIP</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>DTSS</b>	|	Joiz ✅	|	Not Supplied ❔
+<b>KDLY</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>SSY</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>SMTK</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>CTHR</b>	|	Shubhali ❓	|	Not Supplied ❔
+<b>AMIX</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>INM</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>YCBD</b>	|	Tekshirilmagan ❓	|	Not Supplied ❔
+<b>MULN</b>	|	Joiz emas ❌	|	Not Supplied ❔
+<b>AACT</b>	|	Joiz emas ❌	|	Not Supplied ❔

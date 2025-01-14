@@ -1,12 +1,10 @@
 import logging
 import re
-import time
 from datetime import datetime
 
-import httpx
 import requests
 from django.core.management.base import BaseCommand
-from httpx import RequestError
+from requests.adapters import HTTPAdapter
 from telegram import ParseMode, Update
 from telegram.ext import (
     CallbackContext,
@@ -15,6 +13,7 @@ from telegram.ext import (
     MessageHandler,
     Updater,
 )
+from urllib3.util.retry import Retry
 
 from apps.bot.models import Coin, EarningsData, Symbol
 
@@ -25,6 +24,17 @@ logger = logging.getLogger(__name__)
 
 TOKEN = "7546345897:AAEGCiEUA4DfRi-i80aXSmvUS0ItPY-EGJ4"
 GROUP_CHAT_ID = -1002234521267
+
+# Configure retry strategy
+retry_strategy = Retry(
+    total=3,
+    backoff_factor=1,
+    status_forcelist=[429, 500, 502, 503, 504],
+)
+adapter = HTTPAdapter(max_retries=retry_strategy)
+http_session = requests.Session()
+http_session.mount("https://", adapter)
+http_session.mount("http://", adapter)
 
 
 def translate_status(status):
@@ -199,29 +209,64 @@ class Command(BaseCommand):
 
         def fetch_symbols(date: str) -> list:
             url = f"https://api.nasdaq.com/api/calendar/earnings?date={date}"
-            headers = {"User-Agent": "Mozilla/5.0"}
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            }
+
             try:
-                response = requests.get(url, headers=headers, timeout=20)
+                response = http_session.get(url, headers=headers, timeout=30)
                 response.raise_for_status()
+
                 data = response.json().get("data", {}).get("rows", [])
-                symbols = [
-                    {
-                        "symbol": item["symbol"],
-                        "name": item["name"],
-                        "time": item["time"],
+                if not data:
+                    logger.warning(f"No data returned from NASDAQ API for date: {date}")
+                    return []
+
+                symbols = []
+                for item in data:
+                    symbol_data = {
+                        "symbol": item.get("symbol"),
+                        "name": item.get("name"),
+                        "time": item.get("time", EarningsData.TIME_NOT_SUPPLIED),
                     }
-                    for item in data
-                ]
-                for item in symbols:
-                    symbol, created = Symbol.objects.get_or_create(
-                        symbol=item["symbol"], defaults={"name": item["name"]}
-                    )
-                    EarningsData.objects.create(
-                        date=date, symbol=symbol, time=item["time"]
-                    )
+
+                    if all(
+                        symbol_data.values()
+                    ):  # Ensure all required fields are present
+                        symbols.append(symbol_data)
+
+                        # Create or update Symbol and EarningsData objects
+                        try:
+                            symbol, created = Symbol.objects.get_or_create(
+                                symbol=symbol_data["symbol"],
+                                defaults={"name": symbol_data["name"]},
+                            )
+                            EarningsData.objects.update_or_create(
+                                date=date,
+                                symbol=symbol,
+                                defaults={"time": symbol_data["time"]},
+                            )
+                        except Exception as e:
+                            logger.error(
+                                f"Database error for symbol {symbol_data['symbol']}: {e}"
+                            )
+                            continue
+
                 return symbols
-            except requests.RequestException as e:
-                logger.error(f"Failed to fetch symbols: {e}")
+
+            except requests.exceptions.Timeout:
+                logger.error(
+                    f"Timeout while fetching data from NASDAQ API for date: {date}"
+                )
+                raise TimeoutError("NASDAQ API request timed out")
+            except requests.exceptions.RequestException as e:
+                logger.error(f"Error fetching data from NASDAQ API: {e}")
+                raise
+            except ValueError as e:
+                logger.error(f"Error parsing JSON response: {e}")
+                raise
+            except Exception as e:
+                logger.error(f"Unexpected error while fetching symbols: {e}")
                 raise
 
         def format_response(statuses: dict) -> str:
