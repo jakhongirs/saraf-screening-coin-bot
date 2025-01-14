@@ -234,8 +234,6 @@ class Command(BaseCommand):
                     else:
                         raise e
 
-            return []
-
         def format_response(statuses: dict) -> str:
             status_icons = {
                 Symbol.COMPLIANT: "✅",
