@@ -1,10 +1,12 @@
 import logging
 import re
+import time
 from datetime import datetime
 
 import httpx
 import requests
 from django.core.management.base import BaseCommand
+from httpx import RequestError
 from telegram import ParseMode, Update
 from telegram.ext import (
     CallbackContext,
@@ -200,26 +202,39 @@ class Command(BaseCommand):
             headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
             }
-            with httpx.Client(http2=False) as client:
-                response = client.get(url, headers=headers, timeout=60)
-                response.raise_for_status()
-                data = response.json().get("data", {}).get("rows", [])
-                symbols = [
-                    {
-                        "symbol": item["symbol"],
-                        "name": item["name"],
-                        "time": item["time"],
-                    }
-                    for item in data
-                ]
-                for item in symbols:
-                    symbol, created = Symbol.objects.get_or_create(
-                        symbol=item["symbol"], defaults={"name": item["name"]}
-                    )
-                    EarningsData.objects.create(
-                        date=date, symbol=symbol, time=item["time"]
-                    )
-            return symbols
+            retries = 3
+            delay = 5  # seconds
+
+            for attempt in range(retries):
+                try:
+                    with httpx.Client(http2=False) as client:
+                        response = client.get(url, headers=headers, timeout=60)
+                        response.raise_for_status()
+                        data = response.json().get("data", {}).get("rows", [])
+                        symbols = [
+                            {
+                                "symbol": item["symbol"],
+                                "name": item["name"],
+                                "time": item["time"],
+                            }
+                            for item in data
+                        ]
+                        for item in symbols:
+                            symbol, created = Symbol.objects.get_or_create(
+                                symbol=item["symbol"], defaults={"name": item["name"]}
+                            )
+                            EarningsData.objects.create(
+                                date=date, symbol=symbol, time=item["time"]
+                            )
+                        return symbols
+                except (RequestError, ValueError) as e:
+                    if attempt < retries - 1:
+                        time.sleep(delay)
+                        continue
+                    else:
+                        raise e
+
+            return []
 
         def format_response(statuses: dict) -> str:
             status_icons = {
