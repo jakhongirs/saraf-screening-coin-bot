@@ -152,7 +152,32 @@ class Command(BaseCommand):
                     update.message.reply_document(document=open("result.txt", "rb"))
 
         def handle_stock_query(update: Update, symbol: str) -> None:
-            pass
+            """
+            Handles stock queries by searching the Symbol model for the provided stock symbol.
+            """
+            status_translations = {
+                Symbol.COMPLIANT: "Joiz",
+                Symbol.NON_COMPLIANT: "Joiz emas",
+                Symbol.QUESTIONABLE: "Shubhali",
+                Symbol.UNKNOWN: "Tekshirilmagan",
+            }
+
+            stocks = Symbol.objects.filter(symbol__iexact=symbol)
+            if stocks.exists():
+                response = "🔍 Topilgan aksiyalar:\n\n"
+                for stock in stocks:
+                    translated_status = status_translations.get(
+                        stock.shariah_status, "Noma'lum"
+                    )
+                    response += (
+                        f"📌 Belgisi: {stock.symbol}\n"
+                        f"📊 Holat: {translated_status}\n"
+                        "---------------------------------\n"
+                    )
+            else:
+                response = f"'{symbol}' belgisiga ega aksiya topilmadi."
+
+            update.message.reply_text(response)
 
         def is_valid_date(date_str: str) -> bool:
             if not re.match(r"^\d{4}-\d{2}-\d{2}$", date_str):
