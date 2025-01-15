@@ -1,5 +1,7 @@
+import json
 import logging
 import re
+import subprocess
 from datetime import datetime
 
 import requests
@@ -195,20 +197,62 @@ class Command(BaseCommand):
             return EarningsData.objects.filter(date=date).select_related("symbol")
 
         def fetch_symbols(date: str) -> list:
-            url = f"https://api.nasdaq.com/api/calendar/earnings?date={date}"
-            headers = {"User-Agent": "Mozilla/5.0"}
+            curl_command = [
+                "curl",
+                f"https://api.nasdaq.com/api/calendar/earnings?date={date}",
+                "-H",
+                "accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+                "-H",
+                "accept-language: en,ru-RU;q=0.9,ru;q=0.8,en-US;q=0.7",
+                "-H",
+                "cache-control: max-age=0",
+                "-H",
+                "cookie: akaalb_ALB_Default=~op=ao_api__east1:ao_api_east1|~rv=38~m=ao_api_east1:0|~os=ff51b6e767de05e2054c5c99e232919a~id=96e710ab586a53cc094690246eb821ad; permutive-id=e3a7d3ee-7064-407c-ab1a-42296e3b7e12; _sharedid=eff7348e-45c8-4b50-8224-3aa316670eca; _sharedid_cst=zix7LPQsHA%3D%3D; _biz_uid=f17bd305e7ab4844c1b80013e1907576; cto_bundle=WIPKL183RjVnMGFQU1JlZyUyQjFoaCUyQkVjUXFGekZMVmhENkZjUkpWWGxuT2doYWpNREVqR0NncmZvVDhoVDVFdUNsUDlCTmVwNnA1Q2I0cGtYQ1I1VU91Z0lRZUZNZ0JCcmVsRmhyaHA3bUZZTUZwUW1hR2xWRThPQWRVJTJCZmV2TlZ4QjJlZktPMExUWVdEN2clMkY3bk5La05WJTJCQm1RUld6ZVhYc2FjTkNFUmRmSUpRUkU1NkRmQkx0enV6WkliamVYbnh4Z1k5; cto_bidid=BkyB4l9XZ3VBUG5Od3JQRCUyQmV1dTllanFzSWdGWE9PS3gxNnZBdVdrYVVZRjd1UDdhSUlVcVJUbW00WFQ3dEtYTlppaUdONTg3dDNBSklJaDN5enlacnVzZHJlRWVsWlUxd2xHVGZ1RDFuODNINWRPUE8xTG5ERm95c211RlR0TkR1UzJyekNzT3RlRDJ2bXVuTnIlMkZMSXMySlFnJTNEJTNE; OTGPPConsent=DBABLA~BVQqAAAACgA.QA; OptanonAlertBoxClosed=2025-01-13T10:31:00.333Z; kndctr_1C1E66D861D6D1480A495C0F_AdobeOrg_consent=general=in; AMCV_1C1E66D861D6D1480A495C0F%40AdobeOrg=MCMID|81104955412846813304085834382039262943; acquiring_page=/market-activity/earnings; acquring_page=/market-activity/earnings; _biz_flagsA=%7B%22Version%22%3A1%2C%22ViewThrough%22%3A%221%22%2C%22XDomain%22%3A%221%22%2C%22Ecid%22%3A%22-1182238534%22%7D; _ga=GA1.1.1700758612.1736764264; _gcl_au=1.1.77088233.1736764267; _fbp=fb.1.1736764273719.480913550117440249; entryUrl=https://www.nasdaq.com/market-activity/earnings; entryReferringURL=https://www.google.com/; kndctr_1C1E66D861D6D1480A495C0F_AdobeOrg_cluster=irl1; kndctr_1C1E66D861D6D1480A495C0F_AdobeOrg_identity=CiY4MTEwNDk1NTQxMjg0NjgxMzMwNDA4NTgzNDM4MjAzOTI2Mjk0M1IQCPn%5F3fnFMhgBKgNPUjIwAfABiYX7zMYy; AKA_A2=A; _ga_BKF79YTM46=GS1.1.1736938830.2.0.1736938830.60.0.0; _ga_BJE6J0090G=GS1.1.1736938830.2.0.1736938830.60.0.0; _biz_nA=6; OptanonConsent=isGpcEnabled=0&datestamp=Wed+Jan+15+2025+16%3A00%3A37+GMT%2B0500+(Uzbekistan+Standard+Time)&version=202410.1.0&browserGpcFlag=0&isIABGlobal=false&hosts=&landingPath=NotLandingPage&GPPCookiesCount=1&groups=C0003%3A1%2CC0002%3A1%2CC0001%3A1%2CC0004%3A1%2COSSTA_BG%3A1&geolocation=UZ%3BTK&AwaitingReconsent=false; tr_jt_okta=; _ga_FEJP7LTC1E=GS1.1.1736938806.3.1.1736938841.0.0.0; _ga_4VZJSZ76VC=GS1.1.1736938806.3.1.1736938843.23.0.0; _biz_pendingA=%5B%5D; FCNEC=%5B%5B%22AKsRol_My9f6P9gPwUzGC2xrx72pXKmIrF8ovz8VyO8CB5UILImV21CpM26JALLtjbUJTUWg4jq4Riz18GhTP48AQ2BNCYZOuMCEXJO0ddcat1MlM_8iWznBmxzrTBdt-ZcM5RRSsO8ZXC36SjwykHC-2FcZKzdUOA%3D%3D%22%5D%5D; _rdt_uuid=1736764273004.3a6d5089-5570-42cf-9da8-11bbb6b72ccd; _rdt_em=0000000000000000000000000000000000000000000000000000000000000001; bm_sv=D41526B7BA31775D271B92995FEEDD56~YAAQkwNJF5ky9WeUAQAAYaCfaRoWWdQ1V7oOPZ9T83Wf0vUzc/vKrypGNjYuM9l2MiJA8FUyo59Lc/HhdYPE6wZMfVJ2hE9COlSeXhs+jfHboXbG+loY4nVyZD//XFtpD20mvTIA0ogq6zEZ+c/AEnZpkeyyXFWFZPsPtIlHyM37XF8RTeXbHnr5/b/h7rI+RR3LabvXATj+yAqRsSNAhRppMjHxIggVgV7168haQtbM3JWkYb+A3mVkBrXNkDcpuw==~1",
+                "-H",
+                "priority: u=0, i",
+                "-H",
+                'sec-ch-ua: "Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+                "-H",
+                "sec-ch-ua-mobile: ?0",
+                "-H",
+                'sec-ch-ua-platform: "macOS"',
+                "-H",
+                "sec-fetch-dest: document",
+                "-H",
+                "sec-fetch-mode: navigate",
+                "-H",
+                "sec-fetch-site: none",
+                "-H",
+                "sec-fetch-user: ?1",
+                "-H",
+                "upgrade-insecure-requests: 1",
+                "-H",
+                "user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+            ]
+
             try:
-                response = requests.get(url, headers=headers, timeout=20)
-                response.raise_for_status()
-                data = response.json().get("data", {}).get("rows", [])
+                result = subprocess.run(
+                    curl_command,
+                    capture_output=True,
+                    text=True,
+                    timeout=30,
+                )
+
+                if result.returncode != 0:
+                    logger.error(f"Curl command failed: {result.stderr}")
+                    raise RuntimeError("Failed to fetch data with curl")
+
+                data = json.loads(result.stdout)
+                rows = data.get("data", {}).get("rows", [])
                 symbols = [
                     {
                         "symbol": item["symbol"],
                         "name": item["name"],
                         "time": item["time"],
                     }
-                    for item in data
+                    for item in rows
                 ]
+
                 for item in symbols:
                     symbol, created = Symbol.objects.get_or_create(
                         symbol=item["symbol"], defaults={"name": item["name"]}
@@ -216,9 +260,17 @@ class Command(BaseCommand):
                     EarningsData.objects.create(
                         date=date, symbol=symbol, time=item["time"]
                     )
+
                 return symbols
-            except requests.RequestException as e:
-                logger.error(f"Failed to fetch symbols: {e}")
+
+            except json.JSONDecodeError as e:
+                logger.error(f"Failed to parse JSON response: {e}")
+                raise
+            except subprocess.TimeoutExpired as e:
+                logger.error(f"Curl command timed out: {e}")
+                raise
+            except Exception as e:
+                logger.error(f"Unexpected error: {e}")
                 raise
 
         def format_response(statuses: dict) -> str:
